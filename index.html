@@ -66,7 +66,7 @@
     margin:0 0 4px;
   }
   .prompt b{color:var(--amber);font-weight:600;}
-  .progress{
+  .quiz-progress{
     display:flex;
     gap:6px;
     margin:14px 0 22px;
@@ -181,7 +181,7 @@
     .prompt{font-size:11px}
     h2.q{font-size:15px}
     .opt{padding:10px; font-size:14px}
-    .progress{margin:10px 0}
+    .quiz-progress{margin:10px 0}
     .seg{height:3px}
     .footer{flex-direction:column;align-items:flex-start;gap:10px}
     .footer .score{font-size:13px}
@@ -199,7 +199,7 @@
   </div>
   <div class="panel">
     <p class="prompt">Tópico: <b id="topic">—</b></p>
-    <div class="progress" id="progress"></div>
+    <div class="quiz-progress" id="progress"></div>
 
     <div id="quizArea"></div>
 
@@ -863,21 +863,20 @@ function renderQuestion(){
   topicEl.textContent = q.topic;
   buildProgress();
   scoreVal.textContent = score;
-
   // embaralha as opcoes a cada renderizacao
   const letters = Object.keys(q.options);
   const shuffledLetters = shuffle(letters);
 
-  quizArea.innerHTML = `
-    <div class="end">
-      <p class="prompt">Quiz finalizado<span class="cursor"></span></p>
-      <div class="big">${score}/${order.length}</div>
-      <p>${pct}% de acerto</p>
-      <div class="actions">
-        <button id="restartBtn" class="btn btn-outline-secondary">reiniciar</button>
-      </div>
-    </div>
-  `;
+  quizArea.innerHTML = '';
+
+  const h = document.createElement('h2');
+  h.className = 'q';
+  h.textContent = q.question;
+  quizArea.appendChild(h);
+
+  const ul = document.createElement('ul');
+  ul.className = 'options';
+
   shuffledLetters.forEach((origLetter, idx) => {
     const li = document.createElement('li');
     li.className = 'opt';

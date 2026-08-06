@@ -214,603 +214,603 @@
 const DATA = [
   {
     "topic": "Framework",
-    "question": "O que e um framework no desenvolvimento de software?",
+    "question": "Uma equipe adota Laravel para evitar repetir a estrutura de rotas, validação e acesso a dados em cada projeto. Essa decisão descreve melhor o uso de um framework como:",
     "options": {
-      "A": "Um editor de codigo usado apenas para escrever HTML",
-      "B": "Uma estrutura com recursos, padroes e ferramentas para facilitar o desenvolvimento",
-      "C": "Um banco de dados obrigatorio para aplicacoes web",
-      "D": "Uma linguagem de programacao igual ao PHP"
+      "A": "Uma linguagem que substitui PHP e JavaScript", 
+      "B": "Um banco de dados com tabelas pré-criadas", 
+      "C": "Um editor de código com comandos Artisan", 
+      "D": "Uma estrutura com ferramentas, convenções e recursos reutilizáveis"
     },
-    "answer": "B",
-    "explain": "Framework e uma base estruturada que oferece recursos prontos e padroes para acelerar e organizar o desenvolvimento."
+    "answer": "D",
+    "explain": "Um framework fornece uma base organizada, convenções e recursos para problemas recorrentes. Ele não substitui a linguagem PHP nem é, por si só, um banco de dados ou editor."
   },
   {
-    "topic": "CSRF",
-    "question": "Para que serve o @csrf em formularios Blade do Laravel?",
+    "topic": "Rotas nomeadas",
+    "question": "Considere `Route::get('/alunos', [AlunoController::class, 'index'])->name('alunos.index');`. Se a URL mudar para `/estudantes`, qual uso continua evitando alterações nos links que chamam essa rota?",
     "options": {
-      "A": "Criar automaticamente uma rota GET",
-      "B": "Gerar um token de seguranca para proteger contra ataques CSRF",
-      "C": "Validar automaticamente todos os campos do banco",
-      "D": "Transformar um formulario em uma API"
+      "A": "Usar `url('/alunos.index')`", 
+      "B": "Usar `view('alunos.index')`", 
+      "C": "Usar `redirect('/alunos')`", 
+      "D": "Usar `route('alunos.index')`"
     },
-    "answer": "B",
-    "explain": "O @csrf adiciona um token ao formulario para garantir que a requisicao veio de uma fonte confiavel."
-  },
-  {
-    "topic": "Rotas",
-    "question": "Qual e a vantagem de usar rotas nomeadas no Laravel?",
-    "options": {
-      "A": "Permitir gerar URLs e redirecionamentos pelo nome da rota",
-      "B": "Impedir o uso de controllers",
-      "C": "Criar automaticamente tabelas no banco",
-      "D": "Trocar PHP por JavaScript"
-    },
-    "answer": "A",
-    "explain": "Rotas nomeadas facilitam manutencao, pois o codigo referencia o nome da rota em vez da URL fixa."
-  },
-  {
-    "topic": "Rotas",
-    "question": "Em Route::get('/usuarios', ...), o que o metodo get representa?",
-    "options": {
-      "A": "Uma requisicao usada normalmente para buscar ou exibir dados",
-      "B": "Uma requisicao exclusiva para apagar registros",
-      "C": "Um comando para criar migration",
-      "D": "Uma funcao CSS"
-    },
-    "answer": "A",
-    "explain": "GET e um metodo HTTP geralmente usado para solicitar e exibir informacoes."
+    "answer": "D",
+    "explain": "A função `route()` gera a URL a partir do nome da rota, portanto não depende do caminho literal. `view()` resolve uma view, e as outras opções ainda acoplam o código a uma string de URL."
   },
   {
     "topic": "Operador ::",
-    "question": "Na expressao Route::get(...), o que indica o operador :: em PHP?",
+    "question": "No trecho `[AlunoController::class, 'index']`, qual é o significado específico de `AlunoController::class`?",
     "options": {
-      "A": "Concatenacao de strings",
-      "B": "Acesso estatico a metodo ou constante de uma classe",
-      "C": "Criacao de uma variavel de sessao",
-      "D": "Comentario de uma linha"
+      "A": "Cria uma instância de `AlunoController`", 
+      "B": "Executa imediatamente o método `index`", 
+      "C": "Retorna o nome qualificado da classe `AlunoController`", 
+      "D": "Declara uma classe estática chamada `index`"
+    },
+    "answer": "C",
+    "explain": "A constante mágica `::class` fornece o nome qualificado da classe sem instanciá-la. A rota usa esse nome para identificar o Controller e o método que deverá ser chamado."
+  },
+  {
+    "topic": "Operador ::",
+    "question": "Qual descrição diferencia corretamente os dois usos de `::` em `Route::get('/', [AlunoController::class, 'index'])`?",
+    "options": {
+      "A": "Nos dois casos, `::` instancia uma classe", 
+      "B": "Em `Route::get` acessa-se método estático; em `AlunoController::class` obtém-se o nome da classe", 
+      "C": "Em `Route::get` cria-se uma rota nomeada; em `::class` cria-se um Controller", 
+      "D": "Nos dois casos, `::` acessa atributos de um objeto já instanciado"
     },
     "answer": "B",
-    "explain": "O operador :: e usado para acessar membros estaticos de uma classe."
+    "explain": "`Route::get` usa resolução de escopo para chamar um método estático da facade. Já `AlunoController::class` acessa a constante que representa o nome da classe, sem criar objeto."
+  },
+  {
+    "topic": "MVC",
+    "question": "Qual fluxo representa melhor uma listagem de alunos em uma aplicação Laravel MVC?",
+    "options": {
+      "A": "View recebe a URL, consulta o banco e chama o Controller", 
+      "B": "Model recebe a URL, monta HTML e retorna a rota", 
+      "C": "Rota chama o Controller, que consulta o Model e retorna uma View", 
+      "D": "Migration recebe a URL, chama a View e persiste o Controller"
+    },
+    "answer": "C",
+    "explain": "A rota direciona a requisição; o Controller coordena a ação, usa o Model quando precisa de dados e retorna uma resposta, frequentemente uma View. A View não deve concentrar a consulta e o controle do fluxo."
+  },
+  {
+    "topic": "MVC",
+    "question": "Um método de Controller recebe dados validados, cria um registro `Aluno` e redireciona com uma mensagem. Qual responsabilidade está mais claramente preservada?",
+    "options": {
+      "A": "O Controller coordena a requisição; o Model representa a persistência; a View fica para apresentação", 
+      "B": "O Controller passa a ser o banco de dados; o Model substitui a View", 
+      "C": "A View deve executar a inserção porque conhece os campos do formulário", 
+      "D": "A Migration deve redirecionar para exibir a mensagem"
+    },
+    "answer": "A",
+    "explain": "Esse fluxo mantém a separação MVC: o Controller orquestra, o Model lida com dados e a View apresenta conteúdo. Migrations versionam a estrutura do banco, não processam requisições."
   },
   {
     "topic": "Blade",
-    "question": "O que e Laravel Blade?",
+    "question": "Um layout contém `@yield('conteudo')` e uma view filha contém `@section('conteudo') ... @endsection`. Qual alteração quebra o preenchimento desse ponto do layout?",
     "options": {
-      "A": "O sistema de templates usado pelo Laravel para criar views dinamicas",
-      "B": "Um servidor de banco de dados",
-      "C": "Um pacote npm obrigatorio para AJAX",
-      "D": "Uma extensao do MySQL"
+      "A": "Trocar o nome da section para `@section('pagina')` sem alterar o yield", 
+      "B": "Usar `@extends('layouts.app')` na view filha", 
+      "C": "Manter `@section('conteudo')` e incluir HTML dentro dela", 
+      "D": "Definir o `@yield('conteudo')` no arquivo de layout"
     },
     "answer": "A",
-    "explain": "Blade e o motor de templates do Laravel, usado para montar views com sintaxe propria."
+    "explain": "O nome da section deve corresponder ao identificador passado para `@yield`. `@extends` é justamente a forma esperada de associar a view filha ao layout."
   },
   {
     "topic": "Blade",
-    "question": "Qual e a funcao do @yield em um layout Blade?",
+    "question": "Qual afirmação descreve corretamente o papel do Blade em Laravel?",
     "options": {
-      "A": "Definir uma area que sera preenchida por uma section de outra view",
-      "B": "Enviar dados para o banco automaticamente",
-      "C": "Criar uma rota nomeada",
-      "D": "Importar pacotes do npm"
-    },
-    "answer": "A",
-    "explain": "O @yield funciona como um espaco reservado em um layout para receber conteudo."
-  },
-  {
-    "topic": "Blade",
-    "question": "Qual e a funcao do @section no Blade?",
-    "options": {
-      "A": "Definir o conteudo de uma area que sera usada por um layout",
-      "B": "Criar uma tabela no banco",
-      "C": "Executar uma migration",
-      "D": "Encerrar uma sessao flash"
-    },
-    "answer": "A",
-    "explain": "O @section declara um bloco de conteudo que pode preencher um @yield no layout."
-  },
-  {
-    "topic": "Views",
-    "question": "Qual e o papel de uma View no padrao MVC?",
-    "options": {
-      "A": "Exibir a interface ou resposta visual para o usuario",
-      "B": "Armazenar diretamente os registros no banco",
-      "C": "Substituir o controller",
-      "D": "Executar exclusivamente comandos de terminal"
-    },
-    "answer": "A",
-    "explain": "A View e responsavel pela apresentacao dos dados ao usuario."
-  },
-  {
-    "topic": "Vite e Tailwind",
-    "question": "Em ambiente de desenvolvimento Laravel com Vite/Tailwind, qual comando e usado para subir a aplicacao front-end?",
-    "options": {
-      "A": "php artisan migrate",
-      "B": "npm run dev",
-      "C": "composer dump-autoload",
-      "D": "php artisan make:model"
+      "A": "É uma camada de acesso ao banco que substitui o Eloquent", 
+      "B": "É um motor de templates para criar views com diretivas e dados dinâmicos", 
+      "C": "É o compilador de assets usado pelo npm", 
+      "D": "É uma classe de validação para formulários"
     },
     "answer": "B",
-    "explain": "O comando npm run dev inicia o servidor de desenvolvimento dos assets front-end gerenciados pelo Vite."
+    "explain": "Blade é o mecanismo de views do Laravel e fornece diretivas como `@section`, `@yield` e `@csrf`. Eloquent, Vite e FormRequest têm responsabilidades diferentes."
   },
   {
-    "topic": "MVC",
-    "question": "O que significa MVC?",
+    "topic": "Componentes Blade",
+    "question": "Em um componente com `<button {{ $attributes->merge(['class' => 'bg-blue-500 p-2']) }}>{{ $slot }}</button>`, a chamada `<x-botao class=\"mt-4\">Salvar</x-botao>` produz qual resultado conceitual?",
     "options": {
-      "A": "Model, View e Controller",
-      "B": "Migration, Validation e CSS",
-      "C": "Module, Variable e Command",
-      "D": "MySQL, Vite e Composer"
+      "A": "A classe padrão é removida e o botão recebe somente `mt-4`", 
+      "B": "O texto `Salvar` vira um atributo HTML e `$slot` fica vazio", 
+      "C": "As classes padrão e `mt-4` são combinadas, e `Salvar` preenche `$slot`", 
+      "D": "`merge()` ignora atributos informados na chamada do componente"
     },
-    "answer": "A",
-    "explain": "MVC e um padrao arquitetural que separa dados, apresentacao e controle da aplicacao."
+    "answer": "C",
+    "explain": "`$attributes->merge()` preserva atributos padrão e incorpora os atributos recebidos, incluindo classes adicionais. O conteúdo entre as tags do componente é disponibilizado em `$slot`."
   },
   {
-    "topic": "MVC",
-    "question": "No fluxo MVC, qual componente normalmente recebe a requisicao e decide o que fazer?",
+    "topic": "Componentes Blade",
+    "question": "Para que serve principalmente `$slot` no template de um componente Blade anônimo?",
     "options": {
-      "A": "Controller",
-      "B": "View",
-      "C": "Arquivo CSS",
-      "D": "Migration"
+      "A": "Representar apenas atributos HTML como `class` e `type`", 
+      "B": "Carregar a rota nomeada do componente", 
+      "C": "Executar uma consulta Eloquent antes da renderização", 
+      "D": "Representar o conteúdo interno passado entre as tags do componente"
     },
-    "answer": "A",
-    "explain": "O Controller processa a requisicao, chama models quando necessario e retorna uma resposta."
+    "answer": "D",
+    "explain": "`$slot` recebe o conteúdo interno, como o texto de um botão. Os atributos extras são tratados por `$attributes`, não pelo slot."
   },
   {
-    "topic": "MVC",
-    "question": "No MVC, qual componente normalmente representa os dados e regras relacionadas ao banco?",
+    "topic": "Vite e npm",
+    "question": "Após instalar dependências front-end, qual comando mantém o Vite em modo de desenvolvimento, recompilando assets quando os arquivos mudam?",
     "options": {
-      "A": "Model",
-      "B": "View",
-      "C": "Blade section",
-      "D": "npm"
+      "A": "`php artisan migrate`", 
+      "B": "`composer install`", 
+      "C": "`npm run dev`", 
+      "D": "`php artisan make:controller`"
     },
-    "answer": "A",
-    "explain": "O Model representa entidades da aplicacao e costuma se relacionar com tabelas do banco."
+    "answer": "C",
+    "explain": "`npm run dev` executa o script de desenvolvimento do Vite e acompanha mudanças nos assets. Os demais comandos tratam banco, dependências PHP ou geração de código."
   },
   {
-    "topic": "Migration",
-    "question": "O que e uma migration no Laravel?",
+    "topic": "CSS",
+    "question": "Qual exemplo é corretamente classificado como CSS interno?",
     "options": {
-      "A": "Um arquivo que versiona alteracoes na estrutura do banco de dados",
-      "B": "Um template visual do Blade",
-      "C": "Uma requisicao AJAX",
-      "D": "Um token de seguranca de formulario"
+      "A": "`<p style=\"color: red\">Aviso</p>`", 
+      "B": "`<link rel=\"stylesheet\" href=\"app.css\">`", 
+      "C": "Uma classe Tailwind usada no atributo `class`", 
+      "D": "`<style>p { color: red; }</style>` no próprio documento HTML"
     },
-    "answer": "A",
-    "explain": "Migrations controlam criacao e alteracao de tabelas de forma versionada."
+    "answer": "D",
+    "explain": "CSS interno é declarado na tag `<style>` do documento. O atributo `style` é inline, e o elemento `link` referencia uma folha externa."
   },
   {
-    "topic": "Eloquent ORM",
-    "question": "O que e o Eloquent ORM no Laravel?",
+    "topic": "Bootstrap e Tailwind",
+    "question": "Uma equipe quer iniciar telas com componentes visuais já prontos; outra quer combinar pequenas classes para controlar cada espaçamento e cor. Qual associação é a mais adequada?",
     "options": {
-      "A": "Um recurso para manipular dados do banco usando Models e objetos PHP",
-      "B": "Um framework CSS igual ao Bootstrap",
-      "C": "Um comando usado apenas para compilar Tailwind",
-      "D": "Um tipo de arquivo Blade"
+      "A": "Bootstrap para classes utilitárias e Tailwind para componentes prontos", 
+      "B": "Bootstrap para componentes prontos e Tailwind para classes utilitárias", 
+      "C": "Ambos são ORMs para manipular tabelas", 
+      "D": "Ambos substituem o Vite na compilação de assets"
     },
-    "answer": "A",
-    "explain": "O Eloquent ORM permite interagir com tabelas do banco por meio de classes Model."
+    "answer": "B",
+    "explain": "Bootstrap é conhecido por oferecer componentes e estilos prontos, enquanto Tailwind enfatiza utilitários combináveis. Os dois atuam na estilização, não no acesso ao banco."
   },
   {
-    "topic": "Migration x Eloquent",
-    "question": "Qual alternativa diferencia corretamente Migration e Eloquent ORM?",
+    "topic": "CSRF",
+    "question": "Um formulário POST para excluir um cadastro retorna erro de proteção de requisição, embora a rota e o método estejam corretos. Qual elemento é indispensável dentro do formulário Blade?",
     "options": {
-      "A": "Migration define/versiona estrutura do banco; Eloquent manipula dados por Models",
-      "B": "Migration cria CSS; Eloquent cria HTML",
-      "C": "Migration valida formularios; Eloquent protege CSRF",
-      "D": "Migration substitui rotas; Eloquent substitui controllers"
+      "A": "`@yield('csrf')`", 
+      "B": "`@section('token')`", 
+      "C": "`@vite('csrf')`", 
+      "D": "`@csrf`"
     },
-    "answer": "A",
-    "explain": "Migration cuida da estrutura do banco, enquanto Eloquent trabalha com os registros."
+    "answer": "D",
+    "explain": "`@csrf` gera o campo oculto com o token que o Laravel compara à sessão para mitigar CSRF. Diretivas de layout e carregamento de assets não fornecem esse token."
   },
   {
-    "topic": "Atributos virtuais",
-    "question": "No Eloquent ORM, o que sao atributos virtuais?",
+    "topic": "CSRF",
+    "question": "Qual cenário caracteriza corretamente uma proteção CSRF, e não uma validação de campos?",
     "options": {
-      "A": "Atributos calculados ou formatados no Model que nao precisam existir como coluna fisica",
-      "B": "Colunas obrigatorias criadas pelo npm",
-      "C": "Arquivos CSS gerados pelo Blade",
-      "D": "Rotas que nao possuem URL"
+      "A": "Impedir que `cpf` duplicado seja salvo", 
+      "B": "Exigir que `nome` tenha no máximo 255 caracteres", 
+      "C": "Confirmar que uma requisição de alteração possui token ligado à sessão do usuário", 
+      "D": "Garantir que uma rota possua um nome único"
     },
-    "answer": "A",
-    "explain": "Atributos virtuais podem ser gerados por metodos do Model e usados como propriedades calculadas."
+    "answer": "C",
+    "explain": "CSRF verifica a origem legítima de uma requisição que altera estado por meio de um token. Regras como `unique` e `max` validam o conteúdo enviado, não a origem da requisição."
   },
   {
     "topic": "Method spoofing",
-    "question": "O que e method spoofing no Laravel?",
+    "question": "Uma rota de atualização foi definida com `Route::put(...)`. Qual formulário permite que o Laravel a reconheça sem depender de suporte nativo a PUT pelo HTML?",
     "options": {
-      "A": "Tecnica para simular metodos HTTP como PUT, PATCH ou DELETE em formularios HTML",
-      "B": "Tecnica para esconder variaveis PHP do var_dump",
-      "C": "Metodo para criar automaticamente controllers",
-      "D": "Comando para abrir o Vite"
+      "A": "`<form method=\"PUT\"> @csrf </form>`", 
+      "B": "`<form method=\"GET\"> @method('PUT') </form>`", 
+      "C": "`<form method=\"POST\"> @yield('PUT') </form>`", 
+      "D": "`<form method=\"POST\"> @csrf @method('PUT') </form>"
     },
-    "answer": "A",
-    "explain": "Como formularios HTML suportam GET e POST nativamente, o Laravel permite simular outros metodos com @method."
+    "answer": "D",
+    "explain": "Formulários HTML usam GET ou POST; `@method('PUT')` adiciona o campo oculto que permite o method spoofing no Laravel. Definir `method=\"PUT\"` diretamente não é a solução esperada."
   },
   {
-    "topic": "Method spoofing",
-    "question": "Qual diretiva Blade poderia ser usada em um formulario para simular uma requisicao DELETE?",
+    "topic": "Sessão flash",
+    "question": "Após salvar um aluno, o Controller executa `return redirect()->route('alunos.index')->with('mensagem', 'Registro criado');`. Por que `with` é apropriado nesse caso?",
     "options": {
-      "A": "@method('DELETE')",
-      "B": "@yield('DELETE')",
-      "C": "@csrf('DELETE')",
-      "D": "@route('DELETE')"
+      "A": "Cria uma coluna permanente chamada `mensagem`", 
+      "B": "Transforma a mensagem em uma regra de validação", 
+      "C": "Envia a mensagem ao Vite para compilar", 
+      "D": "Armazena uma mensagem flash para a próxima requisição após o redirecionamento"
     },
-    "answer": "A",
-    "explain": "A diretiva @method informa ao Laravel qual metodo HTTP deve ser simulado."
+    "answer": "D",
+    "explain": "A mensagem flash sobrevive ao redirecionamento e normalmente é exibida uma vez na próxima resposta. Ela não é persistida como registro de banco nem substitui validação."
   },
   {
-    "topic": "Sessao flash",
-    "question": "O que e uma variavel de sessao flash no Laravel?",
+    "topic": "Request",
+    "question": "No método `public function salvar(Request $request)`, qual é a interpretação mais precisa para `$request`?",
     "options": {
-      "A": "Um dado temporario guardado na sessao, geralmente disponivel apenas na proxima requisicao",
-      "B": "Uma coluna permanente do banco",
-      "C": "Um arquivo JavaScript compilado",
-      "D": "Uma regra CSS interna"
+      "A": "É um array já validado por padrão", 
+      "B": "É a Model que representa a tabela recebida", 
+      "C": "É uma View com os dados enviados", 
+      "D": "É a requisição HTTP injetada, com entradas do formulário e metadados da chamada"
     },
-    "answer": "A",
-    "explain": "Sessoes flash sao usadas para mensagens temporarias, como avisos de sucesso apos redirecionar."
-  },
-  {
-    "topic": "FormRequest",
-    "question": "Para que servem as classes FormRequest no Laravel?",
-    "options": {
-      "A": "Separar e organizar regras de autorizacao e validacao de formularios",
-      "B": "Criar arquivos CSS externos",
-      "C": "Subir o servidor Vite",
-      "D": "Apagar todas as migrations"
-    },
-    "answer": "A",
-    "explain": "FormRequest centraliza validacao e autorizacao, evitando misturar essas regras no controller."
+    "answer": "D",
+    "explain": "O objeto `Request` representa a requisição recebida e permite acessar entradas, query string e outros dados HTTP. Ele não garante que os dados já foram validados."
   },
   {
     "topic": "FormRequest",
-    "question": "Onde as classes FormRequest costumam ficar em um projeto Laravel?",
+    "question": "Qual sequência representa a separação de responsabilidades esperada ao usar `AlunoRequest` em um Controller?",
     "options": {
-      "A": "app/Http/Requests",
-      "B": "resources/css",
-      "C": "database/migrations",
-      "D": "public/images"
+      "A": "O Controller chama `rules()` manualmente e a View executa `validated()`", 
+      "B": "A Migration valida os dados antes de o Controller receber a requisição", 
+      "C": "O FormRequest autoriza e valida antes da lógica do Controller; o Controller usa os dados aprovados", 
+      "D": "O Model substitui o FormRequest e devolve apenas dados validados"
     },
-    "answer": "A",
-    "explain": "Por convencao, FormRequests ficam no diretorio app/Http/Requests."
+    "answer": "C",
+    "explain": "O FormRequest intercepta a requisição para autorização e validação antes do método do Controller seguir. Isso mantém regras de entrada fora da lógica principal da ação."
   },
   {
     "topic": "FormRequest",
-    "question": "No trecho public function processarForm(Request $request) { $dados = $request->validated(); }, qual correcao e esperada se existe FormularioRequest?",
+    "question": "Qual comando cria a classe `AlunoRequest` no local convencional para requisições de formulário do Laravel?",
     "options": {
-      "A": "Trocar Request $request por FormularioRequest $request",
-      "B": "Trocar validated() por var_dump()",
-      "C": "Remover o parametro $request",
-      "D": "Transformar o metodo em uma migration"
+      "A": "`php artisan make:controller AlunoRequest`", 
+      "B": "`php artisan make:model AlunoRequest`", 
+      "C": "`npm run make:request AlunoRequest`", 
+      "D": "`php artisan make:request AlunoRequest`"
     },
-    "answer": "A",
-    "explain": "Para usar validated(), o metodo deve receber a classe FormRequest especifica, como FormularioRequest."
+    "answer": "D",
+    "explain": "`php artisan make:request AlunoRequest` gera uma FormRequest, normalmente em `app/Http/Requests`. Os geradores de Controller e Model criam classes com responsabilidades diferentes, e npm não executa comandos Artisan."
   },
   {
     "topic": "FormRequest",
-    "question": "Qual e o tipo de dado normalmente retornado por $request->validated()?",
+    "question": "Dado `public function salvar(AlunoRequest $request) { $dados = $request->validated(); }`, qual é o tipo e o conteúdo esperado de `$dados`?",
     "options": {
-      "A": "Array com os dados validados",
-      "B": "Arquivo CSS",
-      "C": "Objeto de rota",
-      "D": "Booleano indicando AJAX"
+      "A": "Um Model `Aluno` ainda não salvo", 
+      "B": "Um array somente com entradas que passaram nas regras de validação", 
+      "C": "Uma string JSON com todas as entradas, válidas ou não", 
+      "D": "Um booleano que informa se `authorize()` retornou true"
     },
-    "answer": "A",
-    "explain": "O metodo validated() retorna um array contendo apenas os dados que passaram pela validacao."
+    "answer": "B",
+    "explain": "`validated()` retorna um array com os dados aceitos pelas regras do FormRequest. Ele não retorna a Model, a resposta HTTP nem todas as entradas sem filtragem."
   },
   {
-    "topic": "CSS",
-    "question": "O que caracteriza o CSS inline?",
+    "topic": "FormRequest e 403",
+    "question": "Um envio possui `nome` e `cpf` válidos, mas o FormRequest contém `public function authorize(): bool { return false; }`. Qual resultado é esperado antes de `rules()` permitir o processamento?",
     "options": {
-      "A": "Estilo aplicado diretamente no atributo style de uma tag HTML",
-      "B": "Estilo escrito apenas em arquivo .env",
-      "C": "Estilo aplicado por migration",
-      "D": "Estilo definido dentro do controller"
+      "A": "Sucesso 200, pois as regras estão corretas", 
+      "B": "Erro 422, pois `authorize()` valida os campos", 
+      "C": "Redirecionamento com mensagem flash de sucesso", 
+      "D": "Erro 403, pois a ação não foi autorizada"
     },
-    "answer": "A",
-    "explain": "CSS inline fica diretamente no elemento HTML, por exemplo em style=\"color: red\"."
+    "answer": "D",
+    "explain": "`authorize()` controla permissão para executar a ação; retornar `false` resulta em 403 Forbidden. Regras de formato e conteúdo pertencem a `rules()` e geram falhas de validação, não de autorização."
   },
   {
-    "topic": "CSS",
-    "question": "O que caracteriza o CSS interno?",
+    "topic": "FormRequest e 403",
+    "question": "Em um exercício sem regra de permissão específica, qual ajuste permite que um `AlunoRequest` recém-criado processe requisições válidas?",
     "options": {
-      "A": "Estilo escrito dentro de uma tag <style> no proprio documento HTML",
-      "B": "Estilo escrito dentro de uma tabela do banco",
-      "C": "Estilo escrito apenas em rotas",
-      "D": "Estilo importado por FormRequest"
+      "A": "Remover o método `rules()`", 
+      "B": "Trocar `validated()` por `all()`", 
+      "C": "Adicionar `@method('POST')` ao Controller", 
+      "D": "Retornar `true` em `authorize()`"
     },
-    "answer": "A",
-    "explain": "CSS interno e definido dentro do proprio HTML, normalmente no cabecalho."
+    "answer": "D",
+    "explain": "Quando não há política de autorização no exercício, `authorize()` deve retornar `true` para não bloquear a requisição. Remover regras ou usar todos os dados não resolve a recusa de permissão."
   },
   {
-    "topic": "CSS",
-    "question": "O que caracteriza o CSS externo?",
+    "topic": "Validação",
+    "question": "Na regra `'cpf' => 'required|unique:alunos'`, qual situação passa pela regra `required` mas falha na regra `unique`?",
     "options": {
-      "A": "Estilo separado em um arquivo .css e vinculado ao HTML",
-      "B": "Estilo escrito diretamente no atributo style",
-      "C": "Estilo criado por var_dump",
-      "D": "Estilo salvo dentro de uma sessao flash"
+      "A": "O campo CPF não foi enviado", 
+      "B": "O CPF foi enviado, mas já existe na tabela `alunos`", 
+      "C": "O CPF foi enviado com mais de 255 caracteres", 
+      "D": "A rota do formulário não possui nome"
     },
-    "answer": "A",
-    "explain": "CSS externo fica em arquivo separado, facilitando reutilizacao e manutencao."
+    "answer": "B",
+    "explain": "`required` exige presença do valor; `unique:alunos` exige que ele ainda não exista na tabela indicada. O limite de tamanho exigiria uma regra `max`, que não aparece nesse exemplo."
   },
   {
-    "topic": "npm",
-    "question": "O que e npm?",
+    "topic": "Estrutura Laravel",
+    "question": "Em qual associação diretório-responsabilidade há um erro?",
     "options": {
-      "A": "Gerenciador de pacotes do ecossistema Node.js",
-      "B": "Um metodo HTTP",
-      "C": "Um banco de dados relacional",
-      "D": "Uma diretiva Blade"
+      "A": "`routes`: definição de rotas da aplicação", 
+      "B": "`resources`: views e arquivos-fonte de front-end", 
+      "C": "`database`: migrations e recursos de banco", 
+      "D": "`public`: classes FormRequest e Controllers"
     },
-    "answer": "A",
-    "explain": "npm e usado para instalar e executar pacotes JavaScript, como ferramentas de front-end."
+    "answer": "D",
+    "explain": "Controllers e FormRequests ficam sob `app`, especialmente `app/Http`. `public` é o diretório público da aplicação, usado como ponto de entrada e para arquivos públicos."
   },
   {
-    "topic": "Bootstrap x Tailwind",
-    "question": "Qual alternativa compara corretamente Bootstrap e Tailwind?",
+    "topic": "Estrutura Laravel",
+    "question": "Um desenvolvedor precisa alterar credenciais locais de banco sem versionar essas informações no repositório. Qual arquivo é o local esperado?",
     "options": {
-      "A": "Bootstrap traz componentes prontos; Tailwind usa classes utilitarias para montar estilos",
-      "B": "Bootstrap e banco de dados; Tailwind e linguagem PHP",
-      "C": "Bootstrap substitui controllers; Tailwind substitui migrations",
-      "D": "Bootstrap serve apenas para AJAX; Tailwind serve apenas para CSRF"
+      "A": "`.env`", 
+      "B": "`routes/web.php`", 
+      "C": "`resources/views/app.blade.php`", 
+      "D": "`database/migrations`"
     },
     "answer": "A",
-    "explain": "Bootstrap oferece componentes e estilos prontos; Tailwind da mais liberdade com classes utilitarias."
+    "explain": "O arquivo `.env` contém valores dependentes do ambiente, como conexão com banco. Rotas, views e migrations não são o local apropriado para credenciais locais."
   },
   {
-    "topic": "Bootstrap x Tailwind",
-    "question": "Qual pode ser uma vantagem do Tailwind?",
+    "topic": "Estrutura Laravel",
+    "question": "Qual conjunto descreve corretamente o papel de `app`, `routes` e `resources`, nessa ordem?",
     "options": {
-      "A": "Maior controle visual usando classes utilitarias diretamente no HTML",
-      "B": "Validar formularios no servidor automaticamente",
-      "C": "Gerar migrations sem comandos",
-      "D": "Executar consultas SQL sozinho"
+      "A": "Assets públicos, migrations e Models", 
+      "B": "Código da aplicação, definição de rotas e views/assets-fonte", 
+      "C": "Configurações de ambiente, banco e arquivos compilados", 
+      "D": "Views, Controllers e apenas arquivos CSS externos"
     },
-    "answer": "A",
-    "explain": "Tailwind permite compor estilos com classes pequenas, oferecendo bastante flexibilidade."
+    "answer": "B",
+    "explain": "`app` abriga o código da aplicação, `routes` define caminhos e ações, e `resources` reúne views e assets de origem. Arquivos públicos compilados são disponibilizados por outro fluxo, frequentemente em `public`."
+  },
+  {
+    "topic": "Migrations",
+    "question": "Uma migration contém `Schema::create('alunos', function (Blueprint $table) { ... });`. O que ela controla principalmente?",
+    "options": {
+      "A": "Os registros já cadastrados em `alunos`", 
+      "B": "A renderização da view de alunos", 
+      "C": "A resposta AJAX de alunos", 
+      "D": "A estrutura da tabela `alunos`"
+    },
+    "answer": "D",
+    "explain": "Migrations versionam a estrutura, como tabelas e colunas. Operações sobre registros individuais são responsabilidade do Eloquent ou de consultas ao banco."
   },
   {
     "topic": "Banco de dados",
-    "question": "Ao configurar a comunicacao do Laravel com o banco, qual comando pode ajudar a testar a conexao aplicando migrations?",
+    "question": "Após configurar o banco no `.env`, por que `php artisan migrate` pode funcionar como teste prático da conexão?",
     "options": {
-      "A": "php artisan migrate",
-      "B": "npm run dev",
-      "C": "php artisan make:controller",
-      "D": "composer create-css"
+      "A": "Porque apenas verifica a sintaxe das views", 
+      "B": "Porque tenta conectar-se ao banco configurado para aplicar migrations", 
+      "C": "Porque instala automaticamente o driver ausente", 
+      "D": "Porque inicia o servidor Vite"
     },
-    "answer": "A",
-    "explain": "php artisan migrate tenta executar migrations no banco configurado, ajudando a identificar problemas de conexao."
+    "answer": "B",
+    "explain": "Para aplicar migrations, o Laravel precisa acessar o banco com a configuração atual; um problema de conexão tende a aparecer nesse processo. O comando não é responsável pelos assets de front-end."
   },
   {
-    "topic": "Request",
-    "question": "No trecho public function processarAlgo(Request $request), o que representa $request?",
+    "topic": "Eloquent ORM",
+    "question": "Qual instrução expressa uma consulta Eloquent que busca o registro de chave primária 20?",
     "options": {
-      "A": "O objeto que contem dados e informacoes da requisicao recebida",
-      "B": "Uma tabela criada automaticamente",
-      "C": "Um arquivo CSS externo",
-      "D": "Uma migration ja executada"
+      "A": "`Aluno::all(20)`", 
+      "B": "`Aluno::select(20)->get()`", 
+      "C": "`Aluno::find(20)`", 
+      "D": "`Aluno::create(20)`"
     },
-    "answer": "A",
-    "explain": "$request representa a requisicao HTTP, incluindo dados enviados por formulario, query string e outros metadados."
+    "answer": "C",
+    "explain": "`find(20)` busca um Model pela chave primária informada. `all()` recupera todos os registros, `select()` escolhe colunas e `create()` insere um novo registro."
   },
   {
-    "topic": "Request",
-    "question": "Qual tipo de informacao pode ser acessada por meio do objeto Request?",
+    "topic": "Eloquent ORM",
+    "question": "Analise: `$aluno = Aluno::find(20); $aluno->nome = 'Novo Nome'; $aluno->save();`. Em termos de banco, qual operação esse código realiza?",
     "options": {
-      "A": "Dados enviados em formularios ou parametros da requisicao",
-      "B": "Somente imagens do diretorio public",
-      "C": "Apenas regras CSS",
-      "D": "Somente migrations antigas"
+      "A": "Insere um novo aluno, pois `save()` sempre cria registros", 
+      "B": "Atualiza o campo `nome` do registro encontrado com id 20", 
+      "C": "Remove o aluno 20 e recria outro", 
+      "D": "Altera apenas uma variável da View, sem persistir"
     },
-    "answer": "A",
-    "explain": "O Request permite acessar entradas enviadas pelo usuario e dados da requisicao HTTP."
+    "answer": "B",
+    "explain": "Como `find(20)` recupera um Model existente, alterar seu atributo e chamar `save()` produz uma atualização. A inserção ocorreria ao salvar uma instância ainda inexistente."
   },
   {
-    "topic": "Accessor e Mutator",
-    "question": "No Eloquent, o que e um Accessor?",
+    "topic": "Eloquent ORM",
+    "question": "Qual é a forma Eloquent de excluir, em uma única linha, o registro cuja chave primária é 20?",
     "options": {
-      "A": "Um recurso para transformar ou formatar um atributo ao ser lido",
-      "B": "Um comando para criar controller",
-      "C": "Uma rota sem nome",
-      "D": "Uma tecnica de AJAX sincrono"
+      "A": "`Aluno::destroy(20);`", 
+      "B": "`Aluno::find(20)->save();`", 
+      "C": "`Aluno::create(['id' => 20]);`", 
+      "D": "`Aluno::all()->delete(20);`"
     },
     "answer": "A",
-    "explain": "Accessors alteram a forma como um atributo e apresentado quando acessado."
+    "explain": "`destroy(20)` exclui o registro pelo identificador e também aceita uma lista de ids. `save()` persiste alterações e `create()` insere registros, portanto não são equivalentes a uma exclusão."
   },
   {
-    "topic": "Accessor e Mutator",
-    "question": "No Eloquent, o que e um Mutator?",
+    "topic": "Eloquent ORM",
+    "question": "Qual sequência também exclui corretamente o aluno de id 20, mas em duas etapas?",
     "options": {
-      "A": "Um recurso para transformar um atributo antes de grava-lo no banco",
-      "B": "Uma diretiva Blade para layouts",
-      "C": "Um metodo para compilar Tailwind",
-      "D": "Uma variavel flash obrigatoria"
+      "A": "`$aluno = Aluno::create(20); $aluno->delete();`", 
+      "B": "`$aluno = Aluno::all(20); $aluno->destroy();`", 
+      "C": "`$aluno = Aluno::find(20); $aluno->delete();`", 
+      "D": "`$aluno = Aluno::where(20); $aluno->save();`"
     },
-    "answer": "A",
-    "explain": "Mutators modificam valores antes de serem persistidos, como formatar texto ou preparar dados."
+    "answer": "C",
+    "explain": "Primeiro `find(20)` localiza a instância; depois `delete()` remove aquele registro. `all()` retorna coleção e `create()` não é a forma de localizar um registro existente."
   },
   {
-    "topic": "Accessor e Mutator",
-    "question": "Em qual local do projeto Laravel accessors e mutators sao comumente aplicados?",
+    "topic": "$fillable",
+    "question": "Uma Model possui `protected $fillable = ['nome', 'idade'];`. Qual efeito é esperado em `Aluno::create($dados)`?",
     "options": {
-      "A": "Nos arquivos Model",
-      "B": "Nos arquivos CSS",
-      "C": "No package.json",
-      "D": "No arquivo robots.txt"
+      "A": "Somente `nome` e `idade` podem ser preenchidos em massa por essa Model", 
+      "B": "A tabela terá apenas duas colunas", 
+      "C": "Os dois campos serão sempre obrigatórios, mesmo sem regras", 
+      "D": "A Model passa a ignorar qualquer validação"
     },
     "answer": "A",
-    "explain": "Accessors e mutators pertencem a logica do Model no Eloquent."
+    "explain": "`$fillable` é uma lista de atributos autorizados para atribuição em massa, ajudando a evitar campos indevidos. Ela não cria colunas nem substitui as regras de validação."
   },
   {
-    "topic": "Facade",
-    "question": "O que e uma Facade no Laravel?",
+    "topic": "Accessors e Mutators",
+    "question": "Uma Model transforma `ANA MARIA` em `ana maria` ao salvar e mostra `ANA MARIA` ao ler o mesmo atributo. Qual associação está correta?",
     "options": {
-      "A": "Uma interface estatica para acessar servicos do framework",
-      "B": "Um arquivo CSS interno",
-      "C": "Um tipo de migration obrigatoria",
-      "D": "Um metodo HTTP usado apenas por AJAX"
+      "A": "A transformação na leitura é Mutator; na gravação é Accessor", 
+      "B": "As duas transformações são migrations", 
+      "C": "A transformação na gravação é Mutator; na leitura é Accessor", 
+      "D": "As duas transformações ocorrem na View"
     },
-    "answer": "A",
-    "explain": "Facades permitem acessar servicos do Laravel com sintaxe estatica, como Route::get."
+    "answer": "C",
+    "explain": "O Mutator prepara ou transforma o valor antes de persistir no banco. O Accessor transforma a apresentação do valor quando ele é recuperado e acessado."
   },
   {
-    "topic": "Facade",
-    "question": "Qual alternativa mostra um exemplo comum de Facade no Laravel?",
+    "topic": "Atributos virtuais",
+    "question": "Uma Model expõe a propriedade `nome_completo` calculada a partir de `nome` e `sobrenome`, sem coluna `nome_completo` na tabela. Como essa propriedade é classificada?",
     "options": {
-      "A": "Route",
-      "B": "style",
-      "C": "HTML",
-      "D": "XMLHttpRequest booleano"
+      "A": "Atributo virtual", 
+      "B": "Chave estrangeira", 
+      "C": "Migration reversível", 
+      "D": "Variável flash"
     },
     "answer": "A",
-    "explain": "Route e uma Facade muito usada para definir rotas no Laravel."
+    "explain": "Atributos virtuais são calculados pela Model e podem ser acessados como propriedades sem existir fisicamente na tabela. Uma chave estrangeira representa relacionamento no banco, não valor derivado."
+  },
+  {
+    "topic": "Facades",
+    "question": "Qual alternativa contém apenas exemplos de facades Laravel frequentemente usadas para acessar serviços do framework?",
+    "options": {
+      "A": "`Route`, `DB` e `Session`", 
+      "B": "`Blade`, `HTML` e `CSS`", 
+      "C": "`Model`, `Migration` e `View`", 
+      "D": "`GET`, `POST` e `DELETE`"
+    },
+    "answer": "A",
+    "explain": "Facades como `Route`, `DB` e `Session` fornecem uma interface estática para serviços registrados no Laravel. Os demais grupos reúnem tecnologias, camadas ou métodos HTTP, não facades equivalentes."
   },
   {
     "topic": "PHP",
-    "question": "Para que serve a funcao var_dump() do PHP?",
+    "question": "Durante uma depuração, qual saída é mais esperada de `var_dump($valor)` em comparação a um simples `echo $valor`?",
     "options": {
-      "A": "Exibir informacoes detalhadas sobre uma variavel, incluindo tipo e valor",
-      "B": "Criar automaticamente uma migration",
-      "C": "Iniciar o Vite",
-      "D": "Proteger formularios contra CSRF"
+      "A": "Apenas o valor formatado como HTML", 
+      "B": "Tipo, valor e detalhes estruturais da variável", 
+      "C": "Uma migration com a estrutura da variável", 
+      "D": "Uma validação automática do conteúdo"
     },
-    "answer": "A",
-    "explain": "var_dump() e usado para inspecionar variaveis durante testes e depuracao."
+    "answer": "B",
+    "explain": "`var_dump()` exibe informações de inspeção, incluindo tipo e valor, sendo útil para depurar arrays e objetos. Ele não valida dados nem gera estrutura de banco."
+  },
+  {
+    "topic": "PHP",
+    "question": "Dizer que PHP é geralmente fracamente tipada significa que:",
+    "options": {
+      "A": "PHP não permite declarar tipos em funções", 
+      "B": "Toda variável deve ser texto", 
+      "C": "A linguagem pode realizar conversões automáticas de tipo em diversos contextos", 
+      "D": "O tipo de uma variável nunca pode mudar"
+    },
+    "answer": "C",
+    "explain": "PHP permite coerções de tipo em várias operações, característica associada à tipagem fraca. Isso não impede o uso de declarações de tipo em PHP moderno."
   },
   {
     "topic": "AJAX",
-    "question": "No desenvolvimento web, o que e AJAX?",
+    "question": "Qual característica distingue uma chamada AJAX de uma navegação tradicional de página, no contexto estudado?",
     "options": {
-      "A": "Tecnica para fazer requisicoes com JavaScript sem recarregar a pagina inteira",
-      "B": "Um banco de dados usado pelo Laravel",
-      "C": "Uma diretiva Blade para criar layout",
-      "D": "Uma classe FormRequest"
+      "A": "AJAX só pode usar banco de dados MySQL", 
+      "B": "AJAX faz requisições JavaScript e pode atualizar parte da interface sem recarregar a página inteira", 
+      "C": "AJAX elimina a necessidade de respostas HTTP", 
+      "D": "AJAX transforma uma requisição GET em migration"
     },
-    "answer": "A",
-    "explain": "AJAX permite comunicacao assincrona com o servidor e atualizacao parcial da pagina."
+    "answer": "B",
+    "explain": "AJAX permite comunicação de rede pelo JavaScript e atualização seletiva da interface. A comunicação continua usando HTTP e pode consumir APIs ou rotas do servidor."
   },
   {
-    "topic": "AJAX",
-    "question": "Qual objeto tradicional do navegador e usado para realizar requisicoes AJAX?",
+    "topic": "XMLHttpRequest",
+    "question": "No trecho `xhr.open('GET', url, true)`, qual é a consequência do terceiro argumento ser `true`?",
     "options": {
-      "A": "XMLHttpRequest",
-      "B": "MigrationRequest",
-      "C": "BladeSection",
-      "D": "CssInline"
+      "A": "A requisição é assíncrona e a interface pode continuar responsiva", 
+      "B": "A resposta terá status 200 obrigatoriamente", 
+      "C": "O método HTTP passa a ser POST", 
+      "D": "O objeto envia a requisição automaticamente, sem `send()`"
     },
     "answer": "A",
-    "explain": "XMLHttpRequest e um objeto usado para enviar requisicoes HTTP via JavaScript."
+    "explain": "O terceiro parâmetro define se a chamada é assíncrona; `true` indica que sim. Ele não garante sucesso HTTP nem substitui a chamada posterior a `send()`."
   },
   {
-    "topic": "AJAX",
-    "question": "No metodo open() do XMLHttpRequest, o que normalmente significa o parametro booleano true?",
+    "topic": "XMLHttpRequest",
+    "question": "No callback abaixo, o que `xhr.readyState === 4` garante antes de verificar `xhr.status === 200`? `if (xhr.readyState === 4) { if (xhr.status === 200) { atualizaCampos(xhr.responseText); } }`",
     "options": {
-      "A": "Que a requisicao sera assincrona",
-      "B": "Que a requisicao sera uma migration",
-      "C": "Que o CSS sera inline",
-      "D": "Que o token CSRF sera ignorado"
+      "A": "Que o servidor autorizou o usuário", 
+      "B": "Que o JSON já foi convertido em objeto", 
+      "C": "Que a resposta da requisição foi concluída", 
+      "D": "Que o status HTTP necessariamente é 200"
+    },
+    "answer": "C",
+    "explain": "O estado 4 é `DONE`: a resposta foi recebida e o ciclo da requisição terminou. O status ainda precisa ser testado separadamente para saber se a resposta foi bem-sucedida."
+  },
+  {
+    "topic": "XMLHttpRequest",
+    "question": "Por que o código de AJAX testa `readyState === 4` e depois `status === 200`, em vez de apenas `status === 200`?",
+    "options": {
+      "A": "Porque `readyState` confirma que a resposta terminou, e `status` confirma o sucesso HTTP esperado", 
+      "B": "Porque `readyState` cria a conexão e `status` envia a requisição", 
+      "C": "Porque ambos verificam se o token CSRF existe", 
+      "D": "Porque `status` só existe em requisições síncronas"
     },
     "answer": "A",
-    "explain": "Quando o terceiro parametro e true, a requisicao ocorre de forma assincrona."
+    "explain": "As condições cobrem aspectos distintos: conclusão do ciclo da requisição e resultado HTTP. Uma resposta pode estar concluída e ainda ter status 404, 403 ou 500."
+  },
+  {
+    "topic": "API e requisições",
+    "question": "Qual situação representa uma requisição síncrona?",
+    "options": {
+      "A": "O navegador inicia uma chamada e atualiza a tela antes de receber qualquer resposta", 
+      "B": "O fluxo que fez a chamada aguarda a resposta para continuar a operação", 
+      "C": "Um componente Blade combina classes CSS", 
+      "D": "Uma migration cria uma tabela sem acessar o banco"
+    },
+    "answer": "B",
+    "explain": "Em uma chamada síncrona, o fluxo espera a resposta antes de prosseguir. AJAX normalmente explora o comportamento assíncrono para não bloquear a interação da página."
+  },
+  {
+    "topic": "API e requisições",
+    "question": "Qual definição é mais precisa para API no contexto de consumo de CEP por uma aplicação Laravel?",
+    "options": {
+      "A": "Uma regra CSS para exibir campos de endereço", 
+      "B": "Uma interface ou contrato que permite a comunicação e troca de dados entre sistemas", 
+      "C": "Um tipo de migration responsável por dados externos", 
+      "D": "Um método de Controller que só funciona via AJAX"
+    },
+    "answer": "B",
+    "explain": "Uma API define como um sistema solicita e recebe dados ou serviços de outro. Ela pode ser consumida tanto em fluxos síncronos quanto assíncronos."
   },
   {
     "topic": "Controller",
-    "question": "Qual comando pode ser usado para criar um novo controller no Laravel?",
+    "question": "Qual comando Artisan gera um Controller chamado `AlunoController`?",
     "options": {
-      "A": "php artisan make:controller NomeController",
-      "B": "npm make:controller NomeController",
-      "C": "php artisan run dev",
-      "D": "composer make:css NomeController"
+      "A": "`php artisan make:request AlunoController`", 
+      "B": "`npm run make:controller AlunoController`", 
+      "C": "`php artisan make:controller AlunoController`", 
+      "D": "`php artisan migrate:controller AlunoController`"
     },
-    "answer": "A",
-    "explain": "O Artisan possui o comando make:controller para gerar controllers."
+    "answer": "C",
+    "explain": "O comando `make:controller` gera uma classe de Controller. `make:request` gera FormRequests, enquanto npm não executa os geradores Artisan."
   },
   {
-    "topic": "Model",
-    "question": "Em um Model Laravel, para que serve a propriedade $fillable?",
+    "topic": "Rotas e Controller",
+    "question": "Uma rota usa `[AlunoController::class, 'index']`. Qual mudança permite chamar outro método do mesmo Controller, preservando a rota e a classe?",
     "options": {
-      "A": "Definir quais campos podem ser preenchidos em massa",
-      "B": "Definir quais rotas sao GET",
-      "C": "Criar regras CSS para formularios",
-      "D": "Iniciar automaticamente o npm"
+      "A": "Trocar a string `'index'` pelo nome do método desejado, como `'create'`", 
+      "B": "Trocar `::class` por `@section`", 
+      "C": "Substituir o array por `@csrf`", 
+      "D": "Alterar o método HTTP para `npm run dev`"
     },
     "answer": "A",
-    "explain": "$fillable lista os atributos permitidos para mass assignment, ajudando na seguranca."
+    "explain": "O segundo item do array é o nome do método de ação do Controller. `AlunoController::class` continua identificando a mesma classe."
   },
   {
-    "topic": "Model",
-    "question": "Que tipo de dado a propriedade $fillable normalmente representa?",
+    "topic": "Formulários Laravel",
+    "question": "Qual combinação é adequada para um formulário que atualiza um recurso via rota PUT e deve ser protegido contra CSRF?",
     "options": {
-      "A": "Um array com nomes de campos permitidos",
-      "B": "Uma string com HTML completo",
-      "C": "Um booleano do XMLHttpRequest",
-      "D": "Uma classe CSS do Bootstrap"
+      "A": "`method=\"POST\"`, `@csrf` e `@method('PUT')`", 
+      "B": "`method=\"PUT\"`, `@yield` e `@section`", 
+      "C": "`method=\"GET\"`, `@csrf` e `@method('DELETE')`", 
+      "D": "`method=\"POST\"`, `@vite` e `@method('GET')`"
     },
     "answer": "A",
-    "explain": "$fillable e normalmente um array de strings com os nomes dos atributos liberados."
+    "explain": "POST é o método HTML usado no envio, `@csrf` adiciona proteção e `@method('PUT')` informa o método interpretado pelo Laravel. As outras combinações não correspondem a uma atualização PUT protegida."
   },
   {
-    "topic": "PHP",
-    "question": "O PHP e geralmente considerado uma linguagem de que tipo em relacao a tipagem?",
+    "topic": "Resumo integrado",
+    "question": "Qual alteração reduz acoplamento entre a interface e a estrutura interna da aplicação?",
     "options": {
-      "A": "Fracamente tipada",
-      "B": "Sem variaveis",
-      "C": "Apenas fortemente tipada sem conversoes",
-      "D": "Tipada somente para CSS"
+      "A": "Trocar links com URL fixa por rotas nomeadas", 
+      "B": "Colocar consultas Eloquent diretamente em arquivos CSS", 
+      "C": "Remover `$fillable` e aceitar todos os campos em massa", 
+      "D": "Usar `readyState === 4` como substituto de validação"
     },
     "answer": "A",
-    "explain": "PHP e considerado fracamente tipado porque realiza conversoes automaticas de tipo em diversas situacoes."
+    "explain": "Rotas nomeadas evitam que links dependam da URL literal, facilitando mudanças de caminho. As demais opções misturam responsabilidades ou tratam problemas de segurança e AJAX de forma incorreta."
   },
   {
-    "topic": "PHP",
-    "question": "O que significa dizer que PHP e fracamente tipado?",
+    "topic": "Resumo integrado",
+    "question": "Qual par contém um mecanismo de segurança de requisição e um mecanismo de segurança de preenchimento em massa, respectivamente?",
     "options": {
-      "A": "A linguagem pode converter tipos automaticamente em algumas operacoes",
-      "B": "A linguagem nao permite criar funcoes",
-      "C": "A linguagem so aceita numeros inteiros",
-      "D": "A linguagem so funciona com Laravel"
+      "A": "`@method` e `@yield`", 
+      "B": "`@csrf` e `$fillable`", 
+      "C": "`readyState` e `@section`", 
+      "D": "`var_dump()` e `rules()`"
     },
-    "answer": "A",
-    "explain": "Em linguagens fracamente tipadas, valores podem mudar ou ser convertidos de tipo com mais flexibilidade."
-  },
-  {
-    "topic": "APIs",
-    "question": "O que e uma API?",
-    "options": {
-      "A": "Uma interface que permite comunicacao entre sistemas seguindo regras definidas",
-      "B": "Uma migration obrigatoria do Laravel",
-      "C": "Um arquivo CSS externo",
-      "D": "Um tipo de variavel flash"
-    },
-    "answer": "A",
-    "explain": "API define como sistemas podem trocar dados e solicitar funcionalidades entre si."
-  },
-  {
-    "topic": "APIs",
-    "question": "Qual alternativa descreve melhor uma requisicao sincrona?",
-    "options": {
-      "A": "O fluxo aguarda a resposta antes de continuar",
-      "B": "A pagina nunca espera resposta do servidor",
-      "C": "A requisicao cria automaticamente uma view",
-      "D": "A requisicao serve apenas para CSS"
-    },
-    "answer": "A",
-    "explain": "Em requisicoes sincronas, o processamento fica aguardando a resposta para seguir."
-  },
-  {
-    "topic": "Seguranca e formularios",
-    "question": "Qual combinacao e comum em formularios Laravel que alteram dados?",
-    "options": {
-      "A": "@csrf para seguranca e @method quando for necessario simular PUT, PATCH ou DELETE",
-      "B": "@yield para validar banco e npm para apagar registros",
-      "C": "var_dump para proteger contra CSRF e CSS inline para validar",
-      "D": "XMLHttpRequest para criar migration e Bootstrap para salvar dados"
-    },
-    "answer": "A",
-    "explain": "Formularios usam @csrf para protecao e @method para simular metodos HTTP nao suportados nativamente pelo HTML."
+    "answer": "B",
+    "explain": "`@csrf` ajuda a proteger a origem de requisições de alteração, e `$fillable` limita atributos aceitos em atribuição em massa. Method spoofing define verbo HTTP; não substitui nenhuma dessas proteções."
   }
 ];
 
